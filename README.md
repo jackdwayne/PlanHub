@@ -18,7 +18,7 @@ React (Planned)
 
 
 ## Environment Setup
-#1. Have latest version of Node.JS
+### 1. Have latest version of Node.JS
 Check with command 
 
 npm --version
@@ -35,7 +35,7 @@ then
 
 npm install -g create-react- app
 
-# 2. Create the app and start local host to view development in real time:
+### 2. Create the app and start local host to view development in real time:
 
 run command:
 
@@ -45,7 +45,7 @@ npm start
 
 Note: This all can be done inside a folder you make then navigate to it inside Visual Studio Code.
 
-# 3. Visual Studio Code tools for easier development
+### 3. Visual Studio Code tools for easier development
 Open Visual Studio Code
 Open the Exxtensions tab
 Search and Install:
@@ -54,7 +54,7 @@ ES7 React/Redux/GraphQL/React-Native snippets
 or
 Simple React Snippets
 
-# 4. Things to look at before starting to code:
+### 4. Things to look at before starting to code:
 
 Easier styling inside the React app without dealing with the index.html and its outside associated css files:
 https://reactjs.org/docs/introducing-jsx.html
