@@ -39,11 +39,11 @@ npm install -g create-react-app
 
 run command:
 
-npx create-react-app (project name)
-cd (project name)
-npm start
+npx create-react-app (project name)  
+cd (project name)  
+npm start  
 
-Note: This all can be done inside a folder you make then navigate to it inside Visual Studio Code.
+Note: This all can be done inside a folder you make then navigate to it inside Visual Studio Code.  
 
 ### 3. Visual Studio Code tools for easier development
 Open Visual Studio Code  
