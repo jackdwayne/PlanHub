@@ -32,6 +32,7 @@ class App extends Component {
     alert("Clicked!");
   };
   renderTableData() {
+    // Update table to render the new changes (pending)
     return this.state.tasks.map((task, index) => {
       const { date, data, priority } = task; //destructuring
       return (
@@ -46,6 +47,9 @@ class App extends Component {
 
   render() {
     return (
+      // Semantic UI stuff
+      // Menu Section: Making the top menu
+      // Container Section: The table menu
       <div className="app">
         <Menu color="blue" borderless inverted>
           <Menu.Item header>PlanHub</Menu.Item>
