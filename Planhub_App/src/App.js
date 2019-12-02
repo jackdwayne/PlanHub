@@ -74,14 +74,11 @@ class App extends Component {
       date: this.state.data,
       data: this.state.date,
       date: "",
-      data: ""
+      data: "",
+      priority: "",
      })
   }
   
-
-  handleAddClick() {
-    alert("Clicked!");
-  }
 
   renderTableData() {
     // Update table to render the new changes (pending)
@@ -104,7 +101,6 @@ class App extends Component {
   // form.select
   handlePrioritySelect(e, { value }) {
     this.setState({ priority: value });
-    alert(value);
   }
 
   // Render the page
