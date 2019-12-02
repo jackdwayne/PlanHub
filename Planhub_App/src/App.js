@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Menu, Container, Input, Button, Table, Form } from "semantic-ui-react";
+import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
 
+// Contains the different options availible to choose from for priorities
 const options = [
   { text: "1", value: "1" },
   { text: "2", value: "2" },
@@ -15,24 +16,13 @@ class App extends Component {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
       date: "",
-      data: "",       //will represent a task
+      data: "", //will represent a task
       priority: "",
 
       // tasks array that will contain a date, data(task), and priority at each index
-      tasks: [
-        {
-          date: "Date",
-          data: "Task",
-          priority: "Priority"
-        },
-        {
-          date: "10/20/2019",
-          data: "Add functionality to react app",
-          priority: 5
-        }
-      ]
+      tasks: []
     };
-    // Bind handlePrioritySelect to this class
+    // Bind methods to this class
     this.handlePrioritySelect = this.handlePrioritySelect.bind(this);
     this.handleChangeData = this.handleChangeData.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -43,57 +33,68 @@ class App extends Component {
   handleChangeDate(e, { value }) {
     this.setState({ date: value });
   }
-  
+
   // Handle moment when data input box state is changing
   handleChangeData(e, { value }) {
     this.setState({ data: value });
   }
 
-  // Handle moment when priority in drop down is chosen
+  // Handle moment when priority drop down is chosen.
   handlePrioritySelect(e, { value }) {
     this.setState({ priority: value });
   }
 
   // Handle moment when user submites data, data, and priority
   handleSubmit(e) {
+    // Prevent syntethic event defaults
     e.preventDefault();
 
-    //set the current states date, and data(task)
-    const { date, data } = this.state;
-    let newTask = {
-      date: this.state.date,
-      data: this.state.data,
-      priority: this.state.priority
-    };
-
-    let flag = [0, 0, 0];
-    if (this.state.priority.length === 0) {
-      flag[2] = 1;
-    }
-
-    if (this.state.data.length === 0) {
-      flag[1] = 1;
-    }
-
-    if (this.state.date.length === 0) {
-      flag[0] = 1;
-    }
-    //adding new task to begging of tasks array
-    const tasks = [...this.state.tasks, newTask];
-
+    // Check if every field (date, task, priority) has been filled. Update
+    // table if every entry has been filled.
     if (
       this.state.date.length !== 0 &&
       this.state.data.length !== 0 &&
       this.state.priority.length !== 0
     ) {
+      /* All three fields have been filled. Make new task */
+
+      //set the current states date, and data(task) into a new task
+      let newTask = {
+        date: this.state.date,
+        data: this.state.data,
+        priority: this.state.priority
+      };
+
+      // Appending the new task into a copy of the task array
+      const updatedTasks = [...this.state.tasks, newTask];
+
+      // Update the state of the app with the new task, and clean class variable
+      // date and data for new input.
       this.setState({
-        tasks: tasks,
-        date: this.state.data,
-        data: this.state.date,
+        tasks: updatedTasks,
         date: "",
         data: ""
       });
     } else {
+      /* Something has not been filled (data, task, or priority). */
+      /* Make flags and alert an error message on what is missing. */
+
+      // Set up flags that check if every entry (date, task, priority) is set
+      let flag = [0, 0, 0];
+      if (this.state.priority.length === 0) {
+        // Priority has not been filled
+        flag[2] = 1;
+      }
+      if (this.state.data.length === 0) {
+        // The task has not been filled
+        flag[1] = 1;
+      }
+      if (this.state.date.length === 0) {
+        // The date has not been filled
+        flag[0] = 1;
+      }
+
+      // Set up alert error messege, then alert.
       let error = "";
       if (flag[0] !== 0) error += "Missing a Date entry\n";
       if (flag[1] !== 0) error += "Missing a Task entry\n";
@@ -103,7 +104,7 @@ class App extends Component {
   }
 
   renderTableData() {
-    // Update table to render the new changes (pending)
+    // Update table to render the new changes
     return this.state.tasks.map((task, index) => {
       const { date, data, priority } = task; //destructuring
       return (
@@ -116,13 +117,6 @@ class App extends Component {
     });
   }
 
-  // Handle moment when priority drop down is chosen
-  // e is a synthetic event, {value} should be the value given by the
-  // form.select
-  handlePrioritySelect(e, { value }) {
-    this.setState({ priority: value });
-  }
-
   // Render the page
   render() {
     return (
@@ -130,7 +124,7 @@ class App extends Component {
       // Menu Section: Making the top menu
       // Container Section: The table menu
       <div className="app">
-        <Menu color="blue" borderless inverted>
+        <Menu color="blue" borderless attached inverted>
           <Menu.Item header>PlanHub</Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item name="Home" />
