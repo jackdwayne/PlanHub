@@ -63,18 +63,30 @@ class App extends Component {
       priority: this.state.priority
     };
 
+    if(this.state.priority.length === 0){
+      alert("need to fill out priority");
+    }
+
+    if(this.state.data.length === 0){
+      alert("need to fill out task");
+    }
+
+    if(this.state.date.length === 0){
+      alert("need to fill out date");
+    }
     //adding new task to begging of tasks array
     const tasks = [...this.state.tasks, newTask];
-
-    if(this.state.data.length !== 0){
-      if(this.state.date.length !== 0){
-        this.setState({
-          tasks: tasks,
-          date: this.state.data,
-          data: this.state.date,
-          date: "",
-          data: ""
-         })
+    if(this.state.priority !== 0){
+      if(this.state.data.length !== 0){
+        if(this.state.date.length !== 0){
+          this.setState({
+            tasks: tasks,
+            date: this.state.data,
+            data: this.state.date,
+            date: "",
+            data: ""
+          })
+        }
       }
     }
   }
