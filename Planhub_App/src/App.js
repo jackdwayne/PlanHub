@@ -59,8 +59,8 @@ class App extends Component {
     e.preventDefault();
     const { date, data } = this.state;
     let newTask = {
-      data: this.state.data,
       date: this.state.date,
+      data: this.state.data,
       priority: this.state.priority
     };
     const tasks = [...this.state.tasks, newTask];
@@ -68,9 +68,8 @@ class App extends Component {
       tasks: tasks
     });
     this.setState({ 
-      data: this.state.date, 
       date: this.state.data,
-
+      data: this.state.date
      })
   }
   
