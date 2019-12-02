@@ -63,6 +63,17 @@ class App extends Component {
       priority: this.state.priority
     };
 
+    if(this.state.priority.length === 0){
+      alert("need to fill out priority");
+    }
+
+    if(this.state.data.length === 0){
+      alert("need to fill out task");
+    }
+
+    if(this.state.date.length === 0){
+      alert("need to fill out date");
+    }
     //adding new task to begging of tasks array
     const tasks = [...this.state.tasks, newTask];
 
