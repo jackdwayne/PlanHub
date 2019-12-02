@@ -14,12 +14,11 @@ class App extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
-      // A map that contains the new entry, will be used to check if a new
-      // input was given
       date: "",
-      data: "",
+      data: "",       //will represent a task
       priority: "",
 
+      // tasks array that will contain a date, data(task), and priority at each index
       tasks: [
         {
           date: "Date",
@@ -40,15 +39,17 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // Handle moment when date input box state is changing
   handleChangeDate(e, { value }) {
     this.setState({ date: value });
   }
-
+  
+  // Handle moment when data input box state is changing
   handleChangeData(e, { value }) {
     this.setState({ data: value });
   }
 
-  // Handle moment when priority drop down is chosen
+  // Handle moment when priority in drop down is chosen
   handlePrioritySelect(e, { value }) {
     this.setState({ priority: value });
   }
@@ -56,6 +57,8 @@ class App extends Component {
   // Handle moment when user submites data, data, and priority
   handleSubmit(e) {
     e.preventDefault();
+
+    //set the current states date, and data(task)
     const { date, data } = this.state;
     let newTask = {
       date: this.state.date,
