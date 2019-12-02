@@ -74,8 +74,6 @@ class App extends Component {
       date: this.state.data,
       data: this.state.date
      })
-    // Bind handlePrioritySelect to this class
-    this.handlePrioritySelect = this.handlePrioritySelect.bind(this);
   }
   
 
