@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import { Menu, Container, Input, Button, Table, Form } from "semantic-ui-react";
 
-
 const options = [
   { text: "1", value: "1" },
   { text: "2", value: "2" },
@@ -33,7 +32,7 @@ class App extends Component {
           priority: 5
         }
       ]
-    }
+    };
     // Bind handlePrioritySelect to this class
     this.handlePrioritySelect = this.handlePrioritySelect.bind(this);
     this.handleChangeData = this.handleChangeData.bind(this);
@@ -41,24 +40,21 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChangeDate(e, { value }){
+  handleChangeDate(e, { value }) {
     this.setState({ date: value });
-    
   }
 
-  
-  handleChangeData(e, { value }){
+  handleChangeData(e, { value }) {
     this.setState({ data: value });
-    
   }
-  
+
   // Handle moment when priority drop down is chosen
   handlePrioritySelect(e, { value }) {
     this.setState({ priority: value });
   }
 
   // Handle moment when user submites data, data, and priority
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
     const { date, data } = this.state;
     let newTask = {
@@ -69,6 +65,7 @@ class App extends Component {
 
     //adding new task to begging of tasks array
     const tasks = [...this.state.tasks, newTask];
+
     if(this.state.data.length !== 0){
       if(this.state.date.length !== 0){
         this.setState({
@@ -81,24 +78,18 @@ class App extends Component {
       }
     }
   }
-  
-
-  handleAddClick() {
-    alert("Clicked!");
-  }
+ 
 
   renderTableData() {
     // Update table to render the new changes (pending)
     return this.state.tasks.map((task, index) => {
       const { date, data, priority } = task; //destructuring
       return (
-
         <Table.Row key={index}>
           <Table.Cell>{date} </Table.Cell>
           <Table.Cell>{data}</Table.Cell>
           <Table.Cell>{priority}</Table.Cell>
         </Table.Row>
-
       );
     });
   }
@@ -108,7 +99,6 @@ class App extends Component {
   // form.select
   handlePrioritySelect(e, { value }) {
     this.setState({ priority: value });
-    alert(value);
   }
 
   // Render the page
@@ -131,13 +121,17 @@ class App extends Component {
             <Form.Group widths="equal">
               <Form.Input
                 fluid
-                label="Date" placeholder="Enter Date" type="text"
+                label="Date"
+                placeholder="Enter Date"
+                type="text"
                 value={this.state.date}
                 onChange={this.handleChangeDate}
               />
               <Form.Input
                 fluid
-                label="Task" placeholder="Enter Task" type="text"
+                label="Task"
+                placeholder="Enter Task"
+                type="text"
                 value={this.state.data}
                 onChange={this.handleChangeData}
               />
@@ -156,17 +150,12 @@ class App extends Component {
           </Form>
 
           <Container>
-            <Table>
-              {this.renderTableData()}
-            </Table>
+            <Table>{this.renderTableData()}</Table>
           </Container>
         </Container>
       </div>
     );
   }
-
 }
 
 export default App;
-
-
