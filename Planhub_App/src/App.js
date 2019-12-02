@@ -15,6 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
+      // A map that contains the new entry, will be used to check if a new
+      // input was given
       date: "",
       data: "",
       priority: "",
@@ -63,6 +65,7 @@ class App extends Component {
       date: this.state.date,
       priority: this.state.priority
     };
+
     const tasks = [...this.state.tasks, newTask];
     this.setState({
       tasks: tasks
@@ -72,8 +75,14 @@ class App extends Component {
       date: this.state.data,
 
      })
+    // Bind handlePrioritySelect to this class
+    this.handlePrioritySelect = this.handlePrioritySelect.bind(this);
   }
   
+
+  handleAddClick() {
+    alert("Clicked!");
+  }
 
   renderTableData() {
     // Update table to render the new changes (pending)
@@ -91,6 +100,15 @@ class App extends Component {
     });
   }
 
+  // Handle moment when priority drop down is chosen
+  // e is a synthetic event, {value} should be the value given by the
+  // form.select
+  handlePrioritySelect(e, { value }) {
+    this.setState({ priority: value });
+    alert(value);
+  }
+
+  // Render the page
   render() {
     return (
       // Semantic UI stuff
