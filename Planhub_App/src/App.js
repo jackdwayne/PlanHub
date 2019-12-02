@@ -65,14 +65,20 @@ class App extends Component {
 
     //adding new task to begging of tasks array
     const tasks = [...this.state.tasks, newTask];
-    this.setState({
-      tasks: tasks,
-      date: this.state.data,
-      data: this.state.date,
-      date: "",
-      data: ""
-    });
+
+    if(this.state.data.length !== 0){
+      if(this.state.date.length !== 0){
+        this.setState({
+          tasks: tasks,
+          date: this.state.data,
+          data: this.state.date,
+          date: "",
+          data: ""
+         })
+      }
+    }
   }
+ 
 
   renderTableData() {
     // Update table to render the new changes (pending)
