@@ -31,6 +31,8 @@ class App extends Component {
         }
       ]
     };
+    // Bind handlePrioritySelect to this class
+    this.handlePrioritySelect = this.handlePrioritySelect.bind(this);
   }
 
   handleAddClick() {
@@ -52,7 +54,9 @@ class App extends Component {
   }
 
   // Handle moment when priority drop down is chosen
-  handlePrioritySelect = (e, {value}) => {
+  // e is a synthetic event, {value} should be the value given by the 
+  // form.select
+  handlePrioritySelect(e, {value}){
     this.setState({priority : value}); 
     alert(value);
   }
