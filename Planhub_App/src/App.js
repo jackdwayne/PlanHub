@@ -63,16 +63,17 @@ class App extends Component {
       priority: this.state.priority
     };
 
-    if(this.state.priority.length === 0){
-      alert("need to fill out priority");
+    let flag = [0, 0, 0];
+    if (this.state.priority.length === 0) {
+      flag[2] = 1;
     }
 
-    if(this.state.data.length === 0){
-      alert("need to fill out task");
+    if (this.state.data.length === 0) {
+      flag[1] = 1;
     }
 
-    if(this.state.date.length === 0){
-      alert("need to fill out date");
+    if (this.state.date.length === 0) {
+      flag[0] = 1;
     }
     //adding new task to begging of tasks array
     const tasks = [...this.state.tasks, newTask];
@@ -89,6 +90,12 @@ class App extends Component {
         date: "",
         data: ""
       });
+    } else {
+      let error = "";
+      if (flag[0] !== 0) error += "Missing a Date entry\n";
+      if (flag[1] !== 0) error += "Missing a Task entry\n";
+      if (flag[2] !== 0) error += "Missing a Priority status\n";
+      alert(error);
     }
   }
 
