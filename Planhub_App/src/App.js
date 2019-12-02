@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { Menu, Container, Input, Button, Table, Form } from "semantic-ui-react";
 
+
 const options = [
   { text: "1", value: "1" },
   { text: "2", value: "2" },
@@ -9,6 +10,7 @@ const options = [
   { text: "4", value: "4" },
   { text: "5", value: "5" }
 ];
+
 class App extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
@@ -18,6 +20,7 @@ class App extends Component {
       date: "",
       data: "",
       priority: "",
+
       tasks: [
         {
           date: "Date",
@@ -30,10 +33,52 @@ class App extends Component {
           priority: 5
         }
       ]
+    }
+    // Bind handlePrioritySelect to this class
+    this.handlePrioritySelect = this.handlePrioritySelect.bind(this);
+    this.handleChangeData = this.handleChangeData.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChangeDate(e, { value }){
+    this.setState({ date: value });
+    
+  }
+
+  handleChangeData(e, {value }){
+    this.setState({ data: value });
+    
+  }
+  
+  // Handle moment when priority drop down is chosen
+  handlePrioritySelect(e, { value }) {
+    this.setState({ priority: value });
+    
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    const { date, data } = this.state;
+    let newTask = {
+      data: this.state.data,
+      date: this.state.date,
+      priority: this.state.priority
     };
+
+    const tasks = [...this.state.tasks, newTask];
+    this.setState({
+      tasks: tasks
+    });
+    this.setState({ 
+      data: this.state.date, 
+      date: this.state.data,
+
+     })
     // Bind handlePrioritySelect to this class
     this.handlePrioritySelect = this.handlePrioritySelect.bind(this);
   }
+  
 
   handleAddClick() {
     alert("Clicked!");
@@ -44,11 +89,13 @@ class App extends Component {
     return this.state.tasks.map((task, index) => {
       const { date, data, priority } = task; //destructuring
       return (
-        <Table.Row key={date}>
-          <Table.Cell>{date}</Table.Cell>
+
+        <Table.Row key={index}>
+          <Table.Cell>{date} </Table.Cell>
           <Table.Cell>{data}</Table.Cell>
           <Table.Cell>{priority}</Table.Cell>
         </Table.Row>
+
       );
     });
   }
@@ -77,11 +124,20 @@ class App extends Component {
           </Menu.Menu>
         </Menu>
         <Container textAlign="center">
-          <Form>
-            {" "}
+          <Form onSubmit={this.handleSubmit}>
             <Form.Group widths="equal">
-              <Form.Input fluid label="Date" placeholder="Enter Date" />
-              <Form.Input fluid label="Task" placeholder="Enter Task" />
+              <Form.Input
+                fluid
+                label="Date" placeholder="Enter Date" type="text"
+                value={this.state.date}
+                onChange={this.handleChangeDate}
+              />
+              <Form.Input
+                fluid
+                label="Task" placeholder="Enter Task" type="text"
+                value={this.state.data}
+                onChange={this.handleChangeData}
+              />
               <Form.Select
                 fluid
                 selection
@@ -91,16 +147,23 @@ class App extends Component {
                 onChange={this.handlePrioritySelect}
               />
             </Form.Group>
+            <Button type="submit" color="blue" onClick={this.handleSubmit}>
+              Add to Schedule
+            </Button>
           </Form>
 
           <Container>
-            <Table>{this.renderTableData()}</Table>
-            <Button color="blue">Save</Button>
+            <Table>
+              {this.renderTableData()}
+            </Table>
           </Container>
         </Container>
       </div>
     );
   }
+
 }
 
 export default App;
+
+
