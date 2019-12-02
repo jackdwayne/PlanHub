@@ -3,16 +3,21 @@ import "./App.css";
 import { Menu, Container, Input, Button, Table, Form } from "semantic-ui-react";
 
 const options = [
-  { text: "1" },
-  { text: "2" },
-  { text: "3" },
-  { text: "4" },
-  { text: "5" }
+  { text: "1", value: "1" },
+  { text: "2", value: "2" },
+  { text: "3", value: "3" },
+  { text: "4", value: "4" },
+  { text: "5", value: "5" }
 ];
 class App extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
+      // A map that contains the new entry, will be used to check if a new 
+      // input was given
+      date:"",
+      data: "",
+      priority: '',
       tasks: [
         {
           date: "Date",
@@ -28,9 +33,10 @@ class App extends Component {
     };
   }
 
-  handleAddClick = () => {
+  handleAddClick() {
     alert("Clicked!");
-  };
+  }
+
   renderTableData() {
     // Update table to render the new changes (pending)
     return this.state.tasks.map((task, index) => {
@@ -45,6 +51,13 @@ class App extends Component {
     });
   }
 
+  // Handle moment when priority drop down is chosen
+  handlePrioritySelect = (e, {value}) => {
+    this.setState({priority : value}); 
+    alert(value);
+  }
+
+  // Render the page
   render() {
     return (
       // Semantic UI stuff
@@ -67,9 +80,11 @@ class App extends Component {
               <Form.Input fluid label="Task" placeholder="Enter Task" />
               <Form.Select
                 fluid
+                selection
                 label="Priority"
                 options={options}
                 placeholder="Priority"
+                onChange={this.handlePrioritySelect}
               />
             </Form.Group>
           </Form>
