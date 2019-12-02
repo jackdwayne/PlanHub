@@ -46,6 +46,7 @@ class App extends Component {
     
   }
 
+  
   handleChangeData(e, {value }){
     this.setState({ data: value });
     
@@ -54,9 +55,9 @@ class App extends Component {
   // Handle moment when priority drop down is chosen
   handlePrioritySelect(e, { value }) {
     this.setState({ priority: value });
-    
   }
 
+  // Handle moment when user submites data, data, and priority
   handleSubmit(e){
     e.preventDefault();
     const { date, data } = this.state;
@@ -66,13 +67,14 @@ class App extends Component {
       priority: this.state.priority
     };
 
+    //adding new task to begging of tasks array
     const tasks = [...this.state.tasks, newTask];
     this.setState({
-      tasks: tasks
-    });
-    this.setState({ 
+      tasks: tasks,
       date: this.state.data,
-      data: this.state.date
+      data: this.state.date,
+      date: "",
+      data: ""
      })
   }
   
