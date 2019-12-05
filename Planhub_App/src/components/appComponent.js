@@ -71,7 +71,7 @@ export class MainApp extends Component {
       // Appending the new task into a copy of the task array
       const updatedTasks = [...this.state.tasks, newTask];
       
-      // making http request to server using axios library
+      // making http request to server using axios library to add task
       axios.post('http://localhost:3000/tasks/add', newTask) 
         .then(res => console.log(res.data));
 
@@ -133,9 +133,8 @@ export class MainApp extends Component {
       // Semantic UI stuff
       // Menu Section: Making the top menu
       // Container Section: The table menu
-      <div>
-
-          <Menu color="blue" borderless attached inverted>
+      <div class="app">
+          <Menu color="blue" borderless top attached inverted>
           <Menu.Item header>PlanHub</Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item name="Home" />
