@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -20,10 +20,10 @@ connection.once('open', () => {
     console.log("MongoDb database connection established successfully!!!")
 })
 
-const exercisesRouter = require('./routes/exercises.js');
+//const exercisesRouter = require('./routes/exercises.js');
 const tasksRouter = require('./routes/tasks');
 
-app.use('/exercises', exercisesRouter);
+//app.use('/exercises', exercisesRouter);
 app.use('/tasks', tasksRouter);
 
 app.listen(port, () => {
