@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import { MainApp } from './components/appComponent'
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return(
