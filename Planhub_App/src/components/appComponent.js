@@ -133,8 +133,8 @@ export class MainApp extends Component {
       // Semantic UI stuff
       // Menu Section: Making the top menu
       // Container Section: The table menu
-      <div class="app">
-          <Menu color="blue" borderless top attached inverted>
+      <div className="app">
+          <Menu color="blue" borderless attached inverted>
           <Menu.Item header>PlanHub</Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item name="Home" />
