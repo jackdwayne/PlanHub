@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 function App() {
   return(
     <Router>
-      <MainApp />
       <br/>
       <Route path="/" component={MainApp} />
+     
     </Router>
   );
 }
