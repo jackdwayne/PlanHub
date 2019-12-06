@@ -137,7 +137,7 @@ export class MainApp extends Component {
           <Menu.Item header>PlanHub</Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item href="/" name="Home" />
-            <Menu.Item href="/appComponent" name="Schedule" />
+            <Menu.Item href="/schedule" name="Schedule" />
             <Menu.Item href="/help" name="Help" />
           </Menu.Menu>
         </Menu>
