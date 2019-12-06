@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "../App.css";
 import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
-import axios from 'axios';
-
+import axios from "axios";
 
 // Contains the different options availible to choose from for priorities
 const options = [
@@ -70,9 +69,10 @@ export class MainApp extends Component {
 
       // Appending the new task into a copy of the task array
       const updatedTasks = [...this.state.tasks, newTask];
-      
+
       // making http request to server using axios library to add task
-      axios.post('http://localhost:3000/tasks/add', newTask) 
+      axios
+        .post("http://localhost:3000/tasks/add", newTask)
         .then(res => console.log(res.data));
 
       // Update the state of the app with the new task, and clean class variable
@@ -108,7 +108,6 @@ export class MainApp extends Component {
       if (flag[2] !== 0) error += "Missing a Priority status\n";
       alert(error);
     }
-   
   }
 
   renderTableData() {
@@ -118,9 +117,9 @@ export class MainApp extends Component {
       return (
         <tbody key={index}>
           <Table.Row key={index}>
-            <Table.Cell >{date} </Table.Cell>
+            <Table.Cell>{date} </Table.Cell>
             <Table.Cell>{data}</Table.Cell>
-            <Table.Cell >{priority}</Table.Cell>
+            <Table.Cell>{priority}</Table.Cell>
           </Table.Row>
         </tbody>
       );
@@ -134,7 +133,7 @@ export class MainApp extends Component {
       // Menu Section: Making the top menu
       // Container Section: The table menu
       <div className="app">
-          <Menu color="blue" borderless attached inverted>
+        <Menu color="blue" borderless attached inverted>
           <Menu.Item header>PlanHub</Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item href="/" name="Home" />
