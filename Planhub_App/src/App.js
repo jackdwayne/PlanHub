@@ -1,14 +1,27 @@
 import React from "react";
+// Stylesheets
 import "./App.css";
-import { MainApp } from './components/schedule'
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { HomePage } from './components/homePage'
+// App components used
+import { MainApp } from "./components/schedule";
+import { HomePage } from "./components/homePage";
+import ErrorPage from "./components/errorPageComponent";
+// Router connections
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect
+} from "react-router-dom";
 
 function App() {
   return (
     <Router>
-      <Route exact path="/schedule" component={MainApp} />
-      <Route path="/" component={HomePage} />
+      <Switch>
+        <Route exact path="/schedule" component={MainApp} />
+        <Route exact path="/" component={HomePage} />
+        <Route component={ErrorPage} />
+      </Switch>
     </Router>
   );
 }
