@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
+import { Menu, Container, Button} from "semantic-ui-react";
 
 export class HomePage extends Component {
   constructor(props) {
