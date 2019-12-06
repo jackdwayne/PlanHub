@@ -151,7 +151,7 @@ render() {
         <Menu.Menu position="right">
           <Menu.Item href="/" name="Home" />
           <Menu.Item href="/appComponent" name="Schedule" />
-          <Menu.Item href="/" name="Login" />
+          <Menu.Item href="/" name="help" />
         </Menu.Menu>
       </Menu>
       <Container className='scheduletable' textAlign="center">
