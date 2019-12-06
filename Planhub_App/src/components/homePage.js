@@ -20,6 +20,7 @@ export class HomePage extends Component {
           <Menu.Menu position="right">
             <Menu.Item href="/" name="Home" />
             <Menu.Item href="/schedule" name="Schedule" />
+            <Menu.Item href="/help" name="Help" />
           </Menu.Menu>
         </Menu>
         <Container className="buttonContainer" textAlign="center">

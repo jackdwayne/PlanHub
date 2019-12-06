@@ -138,6 +138,7 @@ export class MainApp extends Component {
           <Menu.Menu position="right">
             <Menu.Item href="/" name="Home" />
             <Menu.Item href="/appComponent" name="Schedule" />
+            <Menu.Item href="/help" name="Help" />
           </Menu.Menu>
         </Menu>
         <Container textAlign="center">

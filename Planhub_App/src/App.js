@@ -4,13 +4,13 @@ import "./App.css";
 // App components used
 import { MainApp } from "./components/schedule";
 import { HomePage } from "./components/homePage";
+import { HelpPage } from "./components/landingPageComponent";
 import ErrorPage from "./components/errorPageComponent";
-// Router connections
+// Router Connections API
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Link,
   Redirect
 } from "react-router-dom";
 
@@ -21,6 +21,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/schedule" component={MainApp} />
+        <Route exact path="/help" component={HelpPage} />
         <Route exact path="/404" component={ErrorPage} />
         <Redirect to="/404" />
       </Switch>
