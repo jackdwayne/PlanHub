@@ -20,15 +20,15 @@ export class HomePage extends Component {
                     <Menu.Item header>PlanHub</Menu.Item>
                     <Menu.Menu position="right">
                         <Menu.Item href="/" name="Home" />
-                        <Menu.Item href="/appComponent" name="Schedule" />
+                        <Menu.Item href="/schedule" name="Schedule" />
                         <Menu.Item href="/" name="Login" />
                     </Menu.Menu>
                 </Menu>
                 <Container className="buttonContainer" textAlign="center">
-                    <Button className="button1" type="submit" color="blue" href="/appComponent">
+                    <Button className="button1" type="submit" color="blue" href="/schedule">
                         New User
                         </Button>
-                    <Button className="button1" type="submit" color="blue" href="/appComponent">
+                    <Button className="button1" type="submit" color="blue" href="/schedule">
                         Returning User
                         </Button>
                 </Container>
