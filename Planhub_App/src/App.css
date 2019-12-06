@@ -2,3 +2,17 @@
   height: 100em;
   background-color: darkgray;
 }
+
+.homepage{
+  height: 100em;
+  background-color: darkgrey;
+  
+}
+
+.buttonContainer{
+  margin-top: 200px;
+  
+}
+.button1{
+  height:100px;
+}
