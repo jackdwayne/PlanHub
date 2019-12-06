@@ -137,13 +137,13 @@ export class MainApp extends Component {
           <Menu color="blue" borderless attached inverted>
           <Menu.Item header>PlanHub</Menu.Item>
           <Menu.Menu position="right">
-            <Menu.Item name="Home" />
-            <Menu.Item name="How To" />
-            <Menu.Item name="Login" />
+            <Menu.Item href="/" name="Home" />
+            <Menu.Item href="/appComponent" name="Schedule" />
+            <Menu.Item href="/" name="Login" />
           </Menu.Menu>
         </Menu>
         <Container textAlign="center">
-          <Form onSubmit={this.handleSubmit}>
+          <Form>
             <Form.Group widths="equal">
               <Form.Input
                 fluid

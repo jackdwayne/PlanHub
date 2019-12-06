@@ -6,7 +6,6 @@
 ################################################################################
 import subprocess as sp
 import os
-import signal
 
 print("This script will open the PlanHub website")
 x = input("Do you want to open the website? [Y/y for yes]: ")
