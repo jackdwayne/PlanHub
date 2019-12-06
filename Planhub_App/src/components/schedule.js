@@ -142,7 +142,7 @@ export class MainApp extends Component {
             <Menu.Item href="/" name="Login" />
           </Menu.Menu>
         </Menu>
-        <Container textAlign="center">
+        <Container className='scheduletable' textAlign="center">
           <Form>
             <Form.Group widths="equal">
               <Form.Input
@@ -170,7 +170,7 @@ export class MainApp extends Component {
                 onChange={this.handlePrioritySelect}
               />
             </Form.Group>
-            <Button type="submit" color="blue" onClick={this.handleSubmit}>
+            <Button className="addbutton" type="submit" color="blue" onClick={this.handleSubmit}>
               Add to Schedule
             </Button>
           </Form>
