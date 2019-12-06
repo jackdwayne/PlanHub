@@ -3,7 +3,6 @@ import "../App.css";
 import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
 import axios from 'axios';
 
-
 // Contains the different options availible to choose from for priorities
 const options = [
   { text: "1", value: "1" },
@@ -32,6 +31,19 @@ export class MainApp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // checking data base if it has data in it
+  componentDidMount(){
+    axios.get('http://localhost:3000/tasks')
+      .then(response => {
+        if(response.data.length > 0){
+          this.setState({
+            tasks: response.data.map(tasks => tasks)
+          })
+        }
+      })
+  }
+  
+  
   // Handle moment when date input box state is changing
   handleChangeDate(e, { value }) {
     this.setState({ date: value });
@@ -72,7 +84,7 @@ export class MainApp extends Component {
       const updatedTasks = [...this.state.tasks, newTask];
       
       // making http request to server using axios library to add task
-      axios.post('http://localhost:3000/tasks/add', newTask) 
+      axios.post('http://localhost:3000/tasks/add', newTask)
         .then(res => console.log(res.data));
 
       // Update the state of the app with the new task, and clean class variable
@@ -108,11 +120,10 @@ export class MainApp extends Component {
       if (flag[2] !== 0) error += "Missing a Priority status\n";
       alert(error);
     }
-   
+
   }
 
   renderTableData() {
-    // Update table to render the new changes
     return this.state.tasks.map((task, index) => {
       const { date, data, priority } = task; //destructuring
       return (
@@ -127,59 +138,60 @@ export class MainApp extends Component {
     });
   }
 
-  // Render the page
-  render() {
-    return (
-      // Semantic UI stuff
-      // Menu Section: Making the top menu
-      // Container Section: The table menu
-      <div className="app">
-          <Menu color="blue" borderless attached inverted>
-          <Menu.Item header>PlanHub</Menu.Item>
-          <Menu.Menu position="right">
-            <Menu.Item href="/" name="Home" />
-            <Menu.Item href="/appComponent" name="Schedule" />
-            <Menu.Item href="/" name="Login" />
-          </Menu.Menu>
-        </Menu>
-        <Container className='scheduletable' textAlign="center">
-          <Form>
-            <Form.Group widths="equal">
-              <Form.Input
-                fluid
-                label="Date"
-                placeholder="Enter Date"
-                type="text"
-                value={this.state.date}
-                onChange={this.handleChangeDate}
-              />
-              <Form.Input
-                fluid
-                label="Task"
-                placeholder="Enter Task"
-                type="text"
-                value={this.state.data}
-                onChange={this.handleChangeData}
-              />
-              <Form.Select
-                fluid
-                selection
-                label="Priority"
-                options={options}
-                placeholder="Priority"
-                onChange={this.handlePrioritySelect}
-              />
-            </Form.Group>
-            <Button className="addbutton" type="submit" color="blue" onClick={this.handleSubmit}>
-              Add to Schedule
-            </Button>
-          </Form>
 
-          <Container>
-            <Table>{this.renderTableData()}</Table>
-          </Container>
+// Render the page
+render() {
+  return (
+    // Semantic UI stuff
+    // Menu Section: Making the top menu
+    // Container Section: The table menu
+    <div className="app">
+      <Menu color="blue" borderless attached inverted>
+        <Menu.Item header>PlanHub</Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item href="/" name="Home" />
+          <Menu.Item href="/appComponent" name="Schedule" />
+          <Menu.Item href="/" name="Login" />
+        </Menu.Menu>
+      </Menu>
+      <Container className='scheduletable' textAlign="center">
+        <Form>
+          <Form.Group widths="equal">
+            <Form.Input
+              fluid
+              label="Date"
+              placeholder="Enter Date"
+              type="text"
+              value={this.state.date}
+              onChange={this.handleChangeDate}
+            />
+            <Form.Input
+              fluid
+              label="Task"
+              placeholder="Enter Task"
+              type="text"
+              value={this.state.data}
+              onChange={this.handleChangeData}
+            />
+            <Form.Select
+              fluid
+              selection
+              label="Priority"
+              options={options}
+              placeholder="Priority"
+              onChange={this.handlePrioritySelect}
+            />
+          </Form.Group>
+          <Button className="addbutton" type="submit" color="blue" onClick={this.handleSubmit}>
+            Add to Schedule
+            </Button>
+        </Form>
+
+        <Container>
+          <Table>{this.renderTableData()}</Table>
         </Container>
-      </div>
-    );
-  }
+      </Container>
+    </div>
+  );
+}
 }
