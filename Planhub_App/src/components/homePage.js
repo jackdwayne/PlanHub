@@ -4,10 +4,7 @@ import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
 import axios from 'axios';
 
 export class HomePage extends Component {
-    constructor(props) {
-        super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.myRef = React.createRef();
-    }
+    
 
     // Render the page
     render() {
