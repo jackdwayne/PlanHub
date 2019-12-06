@@ -15,12 +15,14 @@ import {
 } from "react-router-dom";
 
 function App() {
+  // Go through each route, depending on what webpage is specified
   return (
     <Router>
       <Switch>
-        <Route exact path="/schedule" component={MainApp} />
         <Route exact path="/" component={HomePage} />
-        <Route component={ErrorPage} />
+        <Route exact path="/schedule" component={MainApp} />
+        <Route exact path="/404" component={ErrorPage} />
+        <Redirect to="/404" />
       </Switch>
     </Router>
   );
