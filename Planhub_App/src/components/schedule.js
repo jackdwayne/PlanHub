@@ -3,7 +3,7 @@ import "../App.css";
 import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
 import { DateInput } from "semantic-ui-calendar-react";
 import axios from "axios";
-
+var _ = require('lodash');
 // Contains the different options availible to choose from for priorities
 const options = [
   { text: "1", value: "1" },
@@ -138,13 +138,28 @@ export class MainApp extends Component {
     });
   }
 
-  sortTasks() {
-    const { tasks } = this.state;
-    let sortedTasks = tasks.sort((a,b) => a.date > b.date);
+  sortByPriority(){
+    const { tasks } = this.state
+    let sortedTasks = tasks
     console.log(sortedTasks)
     this.setState({
-      tasks: sortedTasks.sort((a, b) => a.id > b.id)
+      tasks: sortedTasks.sort(function(a,b){return b.priority - a.priority})
     });
+  }
+
+  sortByDate(){
+    const { tasks } = this.state
+    let sortedTasks = _.orderBy(tasks, ['date','priority'],['asc','desc']);
+    console.log(sortedTasks)
+    this.setState({
+      tasks: sortedTasks
+    });
+  }
+
+  sortTasks() {
+    this.sortByDate()
+     
+    
   }
 
   // Render the page
@@ -167,6 +182,7 @@ export class MainApp extends Component {
             <Form.Group widths="equal">
               <DateInput
                 fluid
+                dateFormat={"YYYYMMDD"}
                 label="date"
                 placeholder="Enter Date"
                 type="text"
