@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "../App.css";
-import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
+import { Menu, Container, Button, Table, Form, Grid } from "semantic-ui-react";
 import { DateInput } from "semantic-ui-calendar-react";
 import axios from "axios";
-var _ = require('lodash');
+var _ = require("lodash");
 // Contains the different options availible to choose from for priorities
 const options = [
   { text: "1", value: "1" },
@@ -125,21 +125,24 @@ export class MainApp extends Component {
   }
 
   // Handle event where user clicks button to delete a task
-  handleDelete(e){
+  handleDelete(e) {
     // Prevent syntethic event defaults
     e.preventDefault();
-    let taskToDelete = this.state.tasks[this.state.tasks.length-1];
-    console.log(taskToDelete._id)
-     // making http request to server using axios library to add task
-     axios
-       .delete("http://localhost:3000/tasks/"+ taskToDelete._id+"/", taskToDelete)
-       .then(res => console.log(res.data));
-  
-   this.state.tasks.pop();
-   this.setState({
-     tasks: this.state.tasks,
-   });
- }
+    let taskToDelete = this.state.tasks[this.state.tasks.length - 1];
+    console.log(taskToDelete._id);
+    // making http request to server using axios library to add task
+    axios
+      .delete(
+        "http://localhost:3000/tasks/" + taskToDelete._id + "/",
+        taskToDelete
+      )
+      .then(res => console.log(res.data));
+
+    this.state.tasks.pop();
+    this.setState({
+      tasks: this.state.tasks
+    });
+  }
 
   renderTableData() {
     return this.state.tasks.map((task, index) => {
@@ -156,17 +159,17 @@ export class MainApp extends Component {
     });
   }
 
-  sortByDate(){
-    const { tasks } = this.state
-    let sortedTasks = _.orderBy(tasks, ['date','priority'],['asc','desc']);
-    console.log(sortedTasks)
+  sortByDate() {
+    const { tasks } = this.state;
+    let sortedTasks = _.orderBy(tasks, ["date", "priority"], ["asc", "desc"]);
+    console.log(sortedTasks);
     this.setState({
       tasks: sortedTasks
     });
   }
 
   sortTasks() {
-    this.sortByDate()
+    this.sortByDate();
   }
 
   // Render the page
@@ -189,7 +192,6 @@ export class MainApp extends Component {
             <Form.Group widths="equal">
               <DateInput
                 fluid
-                dateFormat={"YYYYMMDD"}
                 label="date"
                 placeholder="Enter Date"
                 type="text"
@@ -213,6 +215,7 @@ export class MainApp extends Component {
                 onChange={this.handlePrioritySelect}
               />
             </Form.Group>
+
             <Button
               className="addbutton"
               type="submit"
@@ -221,20 +224,22 @@ export class MainApp extends Component {
             >
               Add to Schedule
             </Button>
+          </Form>
+          <hr></hr>
+          <Container>
+            <Button color="blue" onClick={this.sortTasks}>
+              Sort
+            </Button>
             <Button
               className="addButton"
               type="submit"
               color="blue"
-              
               onClick={this.handleDelete}
             >
               Delete Task
             </Button>
-          </Form>
-          <hr></hr>
-          <Button color="blue" onClick={this.sortTasks}>
-            Sort
-          </Button>
+          </Container>
+
           <Container>
             <Table>{this.renderTableData()}</Table>
           </Container>
