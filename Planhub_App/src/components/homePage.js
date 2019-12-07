@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import { Menu, Container, Button } from "semantic-ui-react";
 
-export class HomePage extends Component {
+export default class HomePage extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.myRef = React.createRef();
