@@ -2,9 +2,9 @@ import React from "react";
 // Stylesheets
 import "./App.css";
 // App components used
-import { MainApp } from "./components/schedule";
-import { HomePage } from "./components/homePage";
-import { HelpPage } from "./components/landingPageComponent";
+import MainApp from "./components/schedule";
+import HomePage from "./components/homePage";
+import HelpPage from "./components/landingPageComponent";
 import ErrorPage from "./components/errorPageComponent";
 // Router Connections API
 import {
