@@ -3,7 +3,7 @@ import "../App.css";
 import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
 import { DateInput } from "semantic-ui-calendar-react";
 import axios from "axios";
-
+var _ = require('lodash');
 // Contains the different options availible to choose from for priorities
 const options = [
   { text: "1", value: "1" },
@@ -13,7 +13,7 @@ const options = [
   { text: "5", value: "5" }
 ];
 
-export default class MainApp extends Component {
+export class MainApp extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.myRef = React.createRef();
@@ -31,7 +31,6 @@ export default class MainApp extends Component {
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sortTasks = this.sortTasks.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
   }
 
   // checking data base if it has data in it
@@ -124,121 +123,96 @@ export default class MainApp extends Component {
     }
   }
 
-
-  // Handle event where user clicks button to delete a task
-  handleDelete(e) {
-    // Prevent syntethic event defaults
-    e.preventDefault();
-    if(this.state.tasks.length === 0){
-      return;
-    }
-    let taskToDelete = this.state.tasks[this.state.tasks.length - 1];
-    console.log(taskToDelete._id)
-
-    // making http request to server using axios library to add task
-    axios
-      .delete("http://localhost:3000/tasks/" + taskToDelete._id, taskToDelete)
-      .then(res => console.log(res.data));
-
-    this.state.tasks.pop();
-    this.setState({
-      tasks: this.state.tasks,
+  renderTableData() {
+    return this.state.tasks.map((task, index) => {
+      const { date, data, priority } = task; //destructuring
+      return (
+        <tbody key={index}>
+          <Table.Row key={index}>
+            <Table.Cell>{date} </Table.Cell>
+            <Table.Cell>{data}</Table.Cell>
+            <Table.Cell>{priority}</Table.Cell>
+          </Table.Row>
+        </tbody>
+      );
     });
   }
 
-renderTableData() {
-  return this.state.tasks.map((task, index) => {
-    const { date, data, priority } = task; //destructuring
+  sortByDate(){
+    const { tasks } = this.state
+    let sortedTasks = _.orderBy(tasks, ['date','priority'],['asc','desc']);
+    console.log(sortedTasks)
+    this.setState({
+      tasks: sortedTasks
+    });
+  }
+
+  sortTasks() {
+    this.sortByDate()
+  }
+
+  // Render the page
+  render() {
     return (
-      <tbody key={index}>
-        <Table.Row key={index}>
-          <Table.Cell>{date} </Table.Cell>
-          <Table.Cell>{data}</Table.Cell>
-          <Table.Cell>{priority}</Table.Cell>
-        </Table.Row>
-      </tbody>
-    );
-  });
-}
-
-sortTasks() {
-  const { tasks } = this.state;
-  let sortedTasks = tasks.sort((a, b) => a.date > b.date);
-  console.log(sortedTasks)
-  this.setState({
-    tasks: sortedTasks.sort((a, b) => a.id > b.id)
-  });
-}
-
-// Render the page
-render() {
-  return (
-    // Semantic UI stuff
-    // Menu Section: Making the top menu
-    // Container Section: The table menu
-    <div className="app">
-      <Menu color="blue" borderless attached inverted>
-        <Menu.Item header>PlanHub</Menu.Item>
-        <Menu.Menu position="right">
-          <Menu.Item href="/" name="Home" />
-          <Menu.Item href="/schedule" name="Schedule" />
-          <Menu.Item href="/help" name="help" />
-        </Menu.Menu>
-      </Menu>
-      <Container className="scheduletable" textAlign="center">
-        <Form>
-          <Form.Group widths="equal">
-            <DateInput
-              fluid
-              label="date"
-              placeholder="Enter Date"
-              type="text"
-              value={this.state.date}
-              onChange={this.handleChangeDate}
-            />
-            <Form.Input
-              fluid
-              label="Task"
-              placeholder="Enter Task"
-              type="text"
-              value={this.state.data}
-              onChange={this.handleChangeData}
-            />
-            <Form.Select
-              fluid
-              selection
-              label="Priority"
-              options={options}
-              placeholder="Priority"
-              onChange={this.handlePrioritySelect}
-            />
+      // Semantic UI stuff
+      // Menu Section: Making the top menu
+      // Container Section: The table menu
+      <div className="app">
+        <Menu color="blue" borderless attached inverted>
+          <Menu.Item header>PlanHub</Menu.Item>
+          <Menu.Menu position="right">
+            <Menu.Item href="/" name="Home" />
+            <Menu.Item href="/schedule" name="Schedule" />
+            <Menu.Item href="/help" name="help" />
+          </Menu.Menu>
+        </Menu>
+        <Container className="scheduletable" textAlign="center">
+          <Form>
+            <Form.Group widths="equal">
+              <DateInput
+                fluid
+                dateFormat={"YYYYMMDD"}
+                label="date"
+                placeholder="Enter Date"
+                type="text"
+                value={this.state.date}
+                onChange={this.handleChangeDate}
+              />
+              <Form.Input
+                fluid
+                label="Task"
+                placeholder="Enter Task"
+                type="text"
+                value={this.state.data}
+                onChange={this.handleChangeData}
+              />
+              <Form.Select
+                fluid
+                selection
+                label="Priority"
+                options={options}
+                placeholder="Priority"
+                onChange={this.handlePrioritySelect}
+              />
+            </Form.Group>
             <Button
-              className="button1"
+              className="addbutton"
               type="submit"
               color="blue"
-              onClick={this.handleDelete}
+              onClick={this.handleSubmit}
             >
               Add to Schedule
             </Button>
-            <Button
-              className="button1"
-              type="submit"
-              color="blue"
-              onClick={this.handleDelete}
-            >
-              Delete Last Task Inserted
-            </Button>
-          </Form.Group>
-        </Form>
-        <hr></hr>
-        <Button color="blue" onClick={this.sortTasks}>
-          Sort
+          </Form>
+          <hr></hr>
+          <Button color="blue" onClick={this.sortTasks}>
+            Sort
           </Button>
-        <Container>
-          <Table>{this.renderTableData()}</Table>
+          <Container>
+            <Table>{this.renderTableData()}</Table>
+          </Container>
         </Container>
-      </Container>
-    </div>
-  );
-}
+      </div>
+    );
+  }
 }
