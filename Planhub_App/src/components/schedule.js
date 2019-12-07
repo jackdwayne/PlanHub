@@ -31,6 +31,7 @@ export class MainApp extends Component {
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sortTasks = this.sortTasks.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   // checking data base if it has data in it
@@ -123,6 +124,23 @@ export class MainApp extends Component {
     }
   }
 
+  // Handle event where user clicks button to delete a task
+  handleDelete(e){
+    // Prevent syntethic event defaults
+    e.preventDefault();
+    let taskToDelete = this.state.tasks[this.state.tasks.length-1];
+    console.log(taskToDelete._id)
+     // making http request to server using axios library to add task
+     axios
+       .delete("http://localhost:3000/tasks/"+ taskToDelete._id+"/", taskToDelete)
+       .then(res => console.log(res.data));
+  
+   this.state.tasks.pop();
+   this.setState({
+     tasks: this.state.tasks,
+   });
+ }
+
   renderTableData() {
     return this.state.tasks.map((task, index) => {
       const { date, data, priority } = task; //destructuring
@@ -203,6 +221,15 @@ export class MainApp extends Component {
             >
               Add to Schedule
             </Button>
+            <Button
+              className="addButton"
+              type="submit"
+              color="blue"
+              
+              onClick={this.handleDelete}
+            >
+              Delete Task
+            </Button>
           </Form>
           <hr></hr>
           <Button color="blue" onClick={this.sortTasks}>
@@ -216,3 +243,5 @@ export class MainApp extends Component {
     );
   }
 }
+
+export default MainApp;
