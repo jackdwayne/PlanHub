@@ -5,11 +5,12 @@ Authors:
 * Jack Dwayne Montana Jones
 * Noah Jackson
   
-## Current Status: **Development Phase**
+## Current Status: **Implementation and Testing Phase**
 
 ## Completed:
-* Web Interface Using React
+* Main Planner Interface Using React
 * Linked MongoDB server to website
+* Linked Multiple React Componenets into One Web App
 
 ## Overview 
 PlanHub is a web based planner application where users are allowed to make schedules and save them locally on their computer. PlanHubs main goal is to provide it’s users with a hassle free and visually pleasing method of planning, where users can give tasks in their schedules priorities and due dates. With the user giving each task in the schedule a priority, they will have the ability to sort the tasks for a specific date by their priority level. 
@@ -20,36 +21,48 @@ PlanHub is a web based planner application where users are allowed to make sched
 * Javascript
 * React
 * Node
-* MongoDB (Planned)
-* Express (Planned)
+* MongoDB 
+* Express 
+* Axios
 
 
-## Environment Setup
+## Starting the Web App/Environment Setup
 ### 1. Have latest version of Node.JS
-Check with command 
+Check with command(s):  
 
+```
 npm --version
+```
 
-or install by downloading th package at:
+or install by downloading the package at:
 
 https://nodejs.org/en/download/
 
-or 
+or install using a package manager (ex. below are for MacOS with either Homebrew or MacPorts)
 
-brew install node
+```
+brew install node 
+sudo port install nodejs
+```
 
-then
+### 2. Ensuring Libraries are Installed for the Website and Server  
+Perform the following commands (in Unix machines):
 
-npm install -g create-react-app
+(Step One: Setting up React)  
+```
+cd Planhub_App  
+npm install  
+```
 
-### 2. Create a New App and start local host to view development in real time:
+(Step Two: Settng up MongoDB)  
+```
+cd src/backend
+npm install
+```
 
-run commands in two separate terminals:
+### 3. Running the Web App
+Run the run.py python script in the main PlanHub directory. The command is the following:
 
-(terminal 1)
-cd backend  
-nodemon server.js
-(terminal 2)
-npm start  
-
-Note: This all can be done inside a folder you make then navigate to it inside Visual Studio Code.  
+```
+python3 run.py
+```
