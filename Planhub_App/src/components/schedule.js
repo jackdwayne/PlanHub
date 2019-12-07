@@ -129,10 +129,13 @@ export class MainApp extends Component {
     // Prevent syntethic event defaults
     e.preventDefault();
     let taskToDelete = this.state.tasks[this.state.tasks.length-1];
-    console.log(taskToDelete._id)
+   
+    if(this.state.tasks.length < 1){
+      return;
+    }
      // making http request to server using axios library to add task
      axios
-       .delete("http://localhost:3000/tasks/"+ taskToDelete._id+"/", taskToDelete)
+       .delete("http://localhost:3000/tasks/"+ taskToDelete._id, taskToDelete)
        .then(res => console.log(res.data));
   
    this.state.tasks.pop();
