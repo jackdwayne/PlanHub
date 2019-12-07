@@ -4,7 +4,7 @@ import { Menu, Container, Button, Table, Form,} from "semantic-ui-react";
 import { DateInput } from "semantic-ui-calendar-react";
 import axios from "axios";
 var _ = require("lodash");
-// Contains the different options availible to choose from for priorities
+// Contains the different options available to choose from for priorities
 const options = [
   { text: "1", value: "1" },
   { text: "2", value: "2" },
@@ -192,7 +192,7 @@ class MainApp extends Component {
             <Form.Group widths="equal">
               <DateInput
                 fluid
-                label="date"
+                label="Date"
                 dateFormat={"L"}
                 placeholder="Enter Date"
                 type="text"
