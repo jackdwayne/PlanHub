@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-import { Menu, Container, Button, Table, Form,} from "semantic-ui-react";
+import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
 import { DateInput } from "semantic-ui-calendar-react";
 import axios from "axios";
 var _ = require("lodash");
@@ -128,21 +128,21 @@ class MainApp extends Component {
   handleDelete(e) {
     // Prevent syntethic event defaults
     e.preventDefault();
-    let taskToDelete = this.state.tasks[this.state.tasks.length-1];
-   
-    if(this.state.tasks.length < 1){
+    let taskToDelete = this.state.tasks[this.state.tasks.length - 1];
+
+    if (this.state.tasks.length < 1) {
       return;
     }
-     // making http request to server using axios library to add task
-     axios
-       .delete("http://localhost:3000/tasks/"+ taskToDelete._id, taskToDelete)
-       .then(res => console.log(res.data));
-  
-   this.state.tasks.pop();
-   this.setState({
-     tasks: this.state.tasks,
-   });
- }
+    // making http request to server using axios library to add task
+    axios
+      .delete("http://localhost:3000/tasks/" + taskToDelete._id, taskToDelete)
+      .then(res => console.log(res.data));
+
+    this.state.tasks.pop();
+    this.setState({
+      tasks: this.state.tasks
+    });
+  }
 
   renderTableData() {
     return this.state.tasks.map((task, index) => {
