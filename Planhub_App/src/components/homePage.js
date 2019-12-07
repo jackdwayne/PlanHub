@@ -6,6 +6,16 @@ export default class HomePage extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.myRef = React.createRef();
+    this.goToHelp = this.goToHelp.bind(this);
+    this.goToSchedule = this.goToSchedule.bind(this);
+  }
+
+  goToSchedule() {
+    this.props.history.push("/schedule");
+  }
+
+  goToHelp() {
+    this.props.history.push("/help");
   }
 
   // Render the page
@@ -24,14 +34,19 @@ export default class HomePage extends Component {
           </Menu.Menu>
         </Menu>
         <Container className="buttonContainer" textAlign="center">
-          <Button className="button1" type="submit" color="blue" href="/help">
+          <Button
+            className="button1"
+            type="submit"
+            color="blue"
+            onClick={this.goToHelp}
+          >
             New User
           </Button>
           <Button
             className="button1"
             type="submit"
             color="blue"
-            href="/schedule"
+            onClick={this.goToSchedule}
           >
             Returning User
           </Button>
