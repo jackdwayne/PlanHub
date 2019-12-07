@@ -138,14 +138,6 @@ export class MainApp extends Component {
     });
   }
 
-  sortByPriority(){
-    const { tasks } = this.state
-    let sortedTasks = tasks
-    console.log(sortedTasks)
-    this.setState({
-      tasks: sortedTasks.sort(function(a,b){return b.priority - a.priority})
-    });
-  }
 
   sortByDate(){
     const { tasks } = this.state
@@ -158,8 +150,6 @@ export class MainApp extends Component {
 
   sortTasks() {
     this.sortByDate()
-     
-    
   }
 
   // Render the page
