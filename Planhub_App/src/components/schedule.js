@@ -13,7 +13,7 @@ const options = [
   { text: "5", value: "5" }
 ];
 
-export class MainApp extends Component {
+class MainApp extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.myRef = React.createRef();
