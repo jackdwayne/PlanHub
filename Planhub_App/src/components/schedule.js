@@ -193,6 +193,7 @@ class MainApp extends Component {
               <DateInput
                 fluid
                 label="date"
+                dateFormat={"L"}
                 placeholder="Enter Date"
                 type="text"
                 value={this.state.date}
