@@ -31,6 +31,7 @@ export default class MainApp extends Component {
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sortTasks = this.sortTasks.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   // checking data base if it has data in it
@@ -123,91 +124,121 @@ export default class MainApp extends Component {
     }
   }
 
-  renderTableData() {
-    return this.state.tasks.map((task, index) => {
-      const { date, data, priority } = task; //destructuring
-      return (
-        <tbody key={index}>
-          <Table.Row key={index}>
-            <Table.Cell>{date} </Table.Cell>
-            <Table.Cell>{data}</Table.Cell>
-            <Table.Cell>{priority}</Table.Cell>
-          </Table.Row>
-        </tbody>
-      );
-    });
-  }
 
-  sortTasks() {
-    const { tasks } = this.state;
-    let sortedTasks = tasks.sort((a,b) => a.date > b.date);
-    console.log(sortedTasks)
+  // Handle event where user clicks button to delete a task
+  handleDelete(e) {
+    // Prevent syntethic event defaults
+    e.preventDefault();
+    if(this.state.tasks.length === 0){
+      return;
+    }
+    let taskToDelete = this.state.tasks[this.state.tasks.length - 1];
+    console.log(taskToDelete._id)
+
+    // making http request to server using axios library to add task
+    axios
+      .delete("http://localhost:3000/tasks/" + taskToDelete._id, taskToDelete)
+      .then(res => console.log(res.data));
+
+    this.state.tasks.pop();
     this.setState({
-      tasks: sortedTasks.sort((a, b) => a.id > b.id)
+      tasks: this.state.tasks,
     });
   }
 
-  // Render the page
-  render() {
+renderTableData() {
+  return this.state.tasks.map((task, index) => {
+    const { date, data, priority } = task; //destructuring
     return (
-      // Semantic UI stuff
-      // Menu Section: Making the top menu
-      // Container Section: The table menu
-      <div className="app">
-        <Menu color="blue" borderless attached inverted>
-          <Menu.Item header>PlanHub</Menu.Item>
-          <Menu.Menu position="right">
-            <Menu.Item href="/" name="Home" />
-            <Menu.Item href="/schedule" name="Schedule" />
-            <Menu.Item href="/help" name="help" />
-          </Menu.Menu>
-        </Menu>
-        <Container className="scheduletable" textAlign="center">
-          <Form>
-            <Form.Group widths="equal">
-              <DateInput
-                fluid
-                label="date"
-                placeholder="Enter Date"
-                type="text"
-                value={this.state.date}
-                onChange={this.handleChangeDate}
-              />
-              <Form.Input
-                fluid
-                label="Task"
-                placeholder="Enter Task"
-                type="text"
-                value={this.state.data}
-                onChange={this.handleChangeData}
-              />
-              <Form.Select
-                fluid
-                selection
-                label="Priority"
-                options={options}
-                placeholder="Priority"
-                onChange={this.handlePrioritySelect}
-              />
-            </Form.Group>
+      <tbody key={index}>
+        <Table.Row key={index}>
+          <Table.Cell>{date} </Table.Cell>
+          <Table.Cell>{data}</Table.Cell>
+          <Table.Cell>{priority}</Table.Cell>
+        </Table.Row>
+      </tbody>
+    );
+  });
+}
+
+sortTasks() {
+  const { tasks } = this.state;
+  let sortedTasks = tasks.sort((a, b) => a.date > b.date);
+  console.log(sortedTasks)
+  this.setState({
+    tasks: sortedTasks.sort((a, b) => a.id > b.id)
+  });
+}
+
+// Render the page
+render() {
+  return (
+    // Semantic UI stuff
+    // Menu Section: Making the top menu
+    // Container Section: The table menu
+    <div className="app">
+      <Menu color="blue" borderless attached inverted>
+        <Menu.Item header>PlanHub</Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item href="/" name="Home" />
+          <Menu.Item href="/schedule" name="Schedule" />
+          <Menu.Item href="/help" name="help" />
+        </Menu.Menu>
+      </Menu>
+      <Container className="scheduletable" textAlign="center">
+        <Form>
+          <Form.Group widths="equal">
+            <DateInput
+              fluid
+              label="date"
+              placeholder="Enter Date"
+              type="text"
+              value={this.state.date}
+              onChange={this.handleChangeDate}
+            />
+            <Form.Input
+              fluid
+              label="Task"
+              placeholder="Enter Task"
+              type="text"
+              value={this.state.data}
+              onChange={this.handleChangeData}
+            />
+            <Form.Select
+              fluid
+              selection
+              label="Priority"
+              options={options}
+              placeholder="Priority"
+              onChange={this.handlePrioritySelect}
+            />
             <Button
-              className="addbutton"
+              className="button1"
               type="submit"
               color="blue"
-              onClick={this.handleSubmit}
+              onClick={this.handleDelete}
             >
               Add to Schedule
             </Button>
-          </Form>
-          <hr></hr>
-          <Button color="blue" onClick={this.sortTasks}>
-            Sort
+            <Button
+              className="button1"
+              type="submit"
+              color="blue"
+              onClick={this.handleDelete}
+            >
+              Delete Last Task Inserted
+            </Button>
+          </Form.Group>
+        </Form>
+        <hr></hr>
+        <Button color="blue" onClick={this.sortTasks}>
+          Sort
           </Button>
-          <Container>
-            <Table>{this.renderTableData()}</Table>
-          </Container>
+        <Container>
+          <Table>{this.renderTableData()}</Table>
         </Container>
-      </div>
-    );
-  }
+      </Container>
+    </div>
+  );
+}
 }
