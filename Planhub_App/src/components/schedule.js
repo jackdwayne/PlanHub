@@ -138,7 +138,6 @@ export class MainApp extends Component {
     });
   }
 
-
   sortByDate(){
     const { tasks } = this.state
     let sortedTasks = _.orderBy(tasks, ['date','priority'],['asc','desc']);
