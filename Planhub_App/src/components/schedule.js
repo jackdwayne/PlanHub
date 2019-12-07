@@ -29,6 +29,7 @@ export class MainApp extends Component {
     this.handleChangeData = this.handleChangeData.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   // checking data base if it has data in it
@@ -181,6 +182,9 @@ render() {
               placeholder="Priority"
               onChange={this.handlePrioritySelect}
             />
+            <Button className="button1" type="submit" color="blue" onClick={this.handleDelete}>
+              Delete task
+            </Button>
           </Form.Group>
           <Button className="addbutton" type="submit" color="blue" onClick={this.handleSubmit}>
             Add to Schedule
