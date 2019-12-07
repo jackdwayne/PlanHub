@@ -1,8 +1,24 @@
 import React, { Component } from "react";
-import { Menu, Container, Image, Header, Card } from "semantic-ui-react";
+import {
+  Menu,
+  Container,
+  Image,
+  Header,
+  Card,
+  Button
+} from "semantic-ui-react";
 import "../App.css";
 
-export class HelpPage extends Component {
+class HelpPage extends Component {
+  constructor(props) {
+    super(props);
+    this.routeSchedule = this.routeSchedule.bind(this);
+  }
+
+  routeSchedule() {
+    this.props.history.push("/schedule");
+  }
+
   render() {
     return (
       // Semantic UI stuff
@@ -18,9 +34,11 @@ export class HelpPage extends Component {
           </Menu.Menu>
         </Menu>
         <Container text>
-          <Header as="h2" textAlign='center'>HOW TO USE THIS APP</Header>
+          <Header as="h2" textAlign="center">
+            HOW TO USE THIS APP
+          </Header>
         </Container>
-        <Container textAlign="center" >
+        <Container textAlign="center">
           <Card.Group itemsPerRow={3}>
             <Card>
               <Card.Content>
@@ -58,6 +76,17 @@ export class HelpPage extends Component {
               </Card.Content>
             </Card>
           </Card.Group>
+        </Container>
+        <br />
+        <Container textAlign="center">
+          <Button
+            className="button1"
+            type="submit"
+            color="blue"
+            onClick={this.routeSchedule}
+          >
+            Start Planning
+          </Button>
         </Container>
       </div>
     );
