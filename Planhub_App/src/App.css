@@ -1,5 +1,6 @@
 .app{
   height: 100em;
+  margin-left: auto;
   background-color: darkgray;
 }
 
@@ -22,4 +23,7 @@
 }
 .scheduletable{
   margin-top: 25px;
+}
+.cardContainer{
+  margin-top: 10px;
 }
