@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import "../App.css";
 import { Menu, Container, Button, Table, Form } from "semantic-ui-react";
-import { DateInput } from "semantic-ui-calendar-react";
 import axios from "axios";
-var _ = require("lodash");
-// Contains the different options available to choose from for priorities
+
+// Contains the different options availible to choose from for priorities
 const options = [
   { text: "1", value: "1" },
   { text: "2", value: "2" },
@@ -13,7 +12,7 @@ const options = [
   { text: "5", value: "5" }
 ];
 
-class MainApp extends Component {
+export class MainApp extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.myRef = React.createRef();
@@ -30,19 +29,6 @@ class MainApp extends Component {
     this.handleChangeData = this.handleChangeData.bind(this);
     this.handleChangeDate = this.handleChangeDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.sortTasks = this.sortTasks.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-  }
-
-  // checking data base if it has data in it
-  componentDidMount() {
-    axios.get("http://localhost:3000/tasks").then(response => {
-      if (response.data.length > 0) {
-        this.setState({
-          tasks: response.data.map(tasks => tasks)
-        });
-      }
-    });
   }
 
   // Handle moment when date input box state is changing
@@ -124,27 +110,8 @@ class MainApp extends Component {
     }
   }
 
-  // Handle event where user clicks button to delete a task
-  handleDelete(e) {
-    // Prevent syntethic event defaults
-    e.preventDefault();
-    let taskToDelete = this.state.tasks[this.state.tasks.length - 1];
-
-    if (this.state.tasks.length < 1) {
-      return;
-    }
-    // making http request to server using axios library to add task
-    axios
-      .delete("http://localhost:3000/tasks/" + taskToDelete._id, taskToDelete)
-      .then(res => console.log(res.data));
-
-    this.state.tasks.pop();
-    this.setState({
-      tasks: this.state.tasks
-    });
-  }
-
   renderTableData() {
+    // Update table to render the new changes
     return this.state.tasks.map((task, index) => {
       const { date, data, priority } = task; //destructuring
       return (
@@ -159,19 +126,6 @@ class MainApp extends Component {
     });
   }
 
-  sortByDate() {
-    const { tasks } = this.state;
-    let sortedTasks = _.orderBy(tasks, ["date", "priority"], ["asc", "desc"]);
-    console.log(sortedTasks);
-    this.setState({
-      tasks: sortedTasks
-    });
-  }
-
-  sortTasks() {
-    this.sortByDate();
-  }
-
   // Render the page
   render() {
     return (
@@ -184,16 +138,15 @@ class MainApp extends Component {
           <Menu.Menu position="right">
             <Menu.Item href="/" name="Home" />
             <Menu.Item href="/schedule" name="Schedule" />
-            <Menu.Item href="/help" name="help" />
+            <Menu.Item href="/help" name="Help" />
           </Menu.Menu>
         </Menu>
-        <Container className="scheduletable" textAlign="center">
+        <Container textAlign="center">
           <Form>
             <Form.Group widths="equal">
-              <DateInput
+              <Form.Input
                 fluid
                 label="Date"
-                dateFormat={"L"}
                 placeholder="Enter Date"
                 type="text"
                 value={this.state.date}
@@ -216,30 +169,10 @@ class MainApp extends Component {
                 onChange={this.handlePrioritySelect}
               />
             </Form.Group>
-
-            <Button
-              className="addbutton"
-              type="submit"
-              color="blue"
-              onClick={this.handleSubmit}
-            >
+            <Button type="submit" color="blue" onClick={this.handleSubmit}>
               Add to Schedule
             </Button>
           </Form>
-          <hr></hr>
-          <Container>
-            <Button color="blue" onClick={this.sortTasks}>
-              Sort
-            </Button>
-            <Button
-              className="addButton"
-              type="submit"
-              color="blue"
-              onClick={this.handleDelete}
-            >
-              Delete Task
-            </Button>
-          </Container>
 
           <Container>
             <Table>{this.renderTableData()}</Table>
@@ -249,5 +182,3 @@ class MainApp extends Component {
     );
   }
 }
-
-export default MainApp;

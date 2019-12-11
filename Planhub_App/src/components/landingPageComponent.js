@@ -5,7 +5,9 @@ import {
   Image,
   Header,
   Card,
-  Button
+  Button,
+  Divider,
+  Segment
 } from "semantic-ui-react";
 import "../App.css";
 
@@ -37,11 +39,22 @@ class HelpPage extends Component {
           <Header as="h2" textAlign="center">
             HOW TO USE THIS APP
           </Header>
+          <Divider/>
+          <Segment>
+          Planhub is a collaborative task management application that groups can use to sort tasks by date and priority.
+          To use this app, go to the schedule page and start by enter a date, task, and priority. Then click the 'Add to Schedule' button.
+          This will add a task to your list and send it to the database to be saved. You can delete the last item input into the list by clicking the 'Delete Task' button.
+          If you are coming back to the list after a while the tasks will be pulled from the database. 
+          You can then use the 'Sort' button to sort the tasks by date and priority to see what you need to work on next!
+          </Segment> 
+          <Divider/>
         </Container>
+        
         <Container textAlign="center">
           <Card.Group itemsPerRow={3}>
             <Card>
               <Card.Content>
+                <Image src="/images/noah.png" size="large" />
                 <Card.Header>Noah Jackson</Card.Header>
                 <Card.Meta>noah.jackson@wsu.edu</Card.Meta>
                 <Card.Description>
