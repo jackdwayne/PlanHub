@@ -192,6 +192,7 @@ class MainApp extends Component {
             <Form.Group widths="equal">
               <DateInput
                 fluid
+                role = "date-inp"
                 label="Date"
                 dateFormat={"L"}
                 placeholder="Enter Date"
@@ -202,6 +203,7 @@ class MainApp extends Component {
               <Form.Input
                 fluid
                 label="Task"
+                role = "task-inp"
                 placeholder="Enter Task"
                 type="text"
                 value={this.state.data}
@@ -209,7 +211,8 @@ class MainApp extends Component {
               />
               <Form.Select
                 fluid
-                selection
+                
+                role = "prior-inp"
                 label="Priority"
                 options={options}
                 placeholder="Priority"
